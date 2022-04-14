@@ -9,8 +9,7 @@
 MODULE_LICENSE("GPL");
 
 static int __init hello_kernel_init(void) {
-    printk(KERN_INFO "Nama : Airlangga Rasyad Fidiyanto \n")
-    printk(KERN_INFO "NIM  : 19/443562/TK/48758");
+    printk(KERN_INFO "Airlangga Rasyad Fidiyanto 19/443562/TK/48758\n");
 
     return 0;
 }
