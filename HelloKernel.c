@@ -6,6 +6,8 @@
 #define DRIVER_AUTHOR "Airlangga Rasyad F <fairlanggarasyad@mail.ugm.ac.id>"
 #define DRIVER_DESC   "Project 2 Sistem Operasi pada Sistem Tertanam"
 
+MODULE_LICENSE("GPL");
+
 static int __init hello_kernel_init(void) {
     printk(KERN_INFO "Nama : Airlangga Rasyad Fidiyanto");
     printk(KERN_INFO "NIM  : 19/443562/TK/48758");
