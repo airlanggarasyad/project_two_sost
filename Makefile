@@ -1,5 +1,4 @@
-obj-m += startstop.o
-startstop-objs := start.o stop.o
+obj-m += HelloKernel.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
@@ -9,13 +8,10 @@ clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 
 insmod:
-	sudo insmod ./startstop.ko
+	sudo insmod ./HelloKernel.ko
 
 rmmod:
-	sudo rmmod startstop
-
-modinfo:
-	modinfo startstop.ko
+	sudo rmmod Hellokernel
 
 showmessage:
 	cat /var/log/syslog
