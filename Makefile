@@ -11,7 +11,7 @@ insmod:
 	sudo insmod ./HelloKernel.ko
 
 rmmod:
-	sudo rmmod Hellokernel
+	sudo rmmod HelloKernel
 
 showmessage:
 	cat /var/log/syslog
