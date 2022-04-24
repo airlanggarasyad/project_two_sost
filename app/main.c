@@ -24,12 +24,13 @@ int read_device() {
 	printf("DEVICE_READ : %s", data);
 	puts(data);
 	
-	if (ret == -1)
+	if (ret == -1) {
 		free(data);
 		return -1;
-	else
+	}	else
 		free(data);
 		return 0;
+	}
 }
 
 int main()
