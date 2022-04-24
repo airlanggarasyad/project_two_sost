@@ -197,15 +197,15 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	device_buffer[strcspn(device_buffer, "\n")] = 0;
 
 	if (strcmp(device_buffer, "get_nama") == 0) {
-		strcpy(stringToReturn,"Airlangga Rasyad Fidiyanto");
+		strcpy(stringToReturn,"Airlangga Rasyad Fidiyanto\n");
 	} else if (strcmp(device_buffer, "get_nim") == 0) {
-		strcpy(stringToReturn, "19/443562/TK/48758");
+		strcpy(stringToReturn, "19/443562/TK/48758\n");
 	} else {
-		strcpy(stringToReturn, "Invalid");
+		strcpy(stringToReturn, "Invalid\n");
 	}
 
 	printk(KERN_INFO "%s", stringToReturn);
-	
+
 	sprintf(msg, "%s\n", stringToReturn);
 	msg_Ptr = msg;	
 	try_module_get(THIS_MODULE);

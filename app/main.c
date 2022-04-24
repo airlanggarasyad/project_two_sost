@@ -19,11 +19,9 @@ int read_device() {
 	memset(data, 0, sizeof(data));
 	data[0] = '\0';
 
-	printf("%s", data);
-	
 	ret = read(fd, data, read_length);
 	
-	printf("DEVICE_READ : %s", data);
+	printf("Kernel Response : %s", data);
 	
 	if (ret == -1) {
 		free(data);
