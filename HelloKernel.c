@@ -7,7 +7,7 @@
 #include <linux/sched.h>
 #include <linux/fs.h>
 #include <asm/uaccess.h>	/* for put_user */
-#include <string.h>
+#include <linux/string.h>
 
 /*  
  *  Function protoypes
