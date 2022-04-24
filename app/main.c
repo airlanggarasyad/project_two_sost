@@ -1,29 +1,49 @@
 #include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+#include <malloc.h>
 
-#define device "/dev/airlangga"
+#define DEVICE "/dev/airlangga"
+
+int debug = 1, fd = 0;
+
+int read_device() {
+	int write_length = 0, ppos = 0, debug = 1;
+	ssize_t ret;
+	char *data = (char *)malloc(1024 * sizeof(char));
+
+	printf("Perintah: \n");
+	scanf(" %[^\n]", data); /* a space added after"so that it reads white space,
+							%[^\n] is   addeed so that it takes input until new line*/
+
+	write_length = strlen(data);
+	
+	if (debug)
+			printf("the length of dat written = %d\n", write_length);
+
+	ret = write(fd, data, write_length, &ppos);
+	
+	if (ret == -1)
+			printf("Writing failed...\n");
+	else
+			printf("Writing success...\n");
+
+	if (debug)fflush(stdout); /*not to miss any log*/
+	free(data);
+}
 
 int main() {
-	FILE *fp;
+	int ret;
 	char buffer[256];
+	char stringToSend[256];
 
 	printf("Demo calling kernel module using character device driver\n");
-	printf("Reading file %s...\n",device);
+	printf("Reading file %s...\n", DEVICE);
 
-	fp = fopen(device,"r");
-	if(fp == NULL) {
-		printf("Can't open file %s\n",device);
-		return 0;
-	}
-	
-	memset(buffer, 0, sizeof buffer);
+	fd = open(DEVICE, O_RDWR);
+	read_device();
+	close(fd);
 
-	char messageToSend[] = "get_name";
-
-	fwrite(messageToSend , 1 , sizeof(messageToSend) , fp );
-	fread(buffer, sizeof(buffer), 1, fp);
-	printf("Kernel Respond: %s",buffer);
-	
-
-	fclose(fp);
 	return 0;
 }
