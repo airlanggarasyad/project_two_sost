@@ -16,9 +16,11 @@ int read_device() {
 
 	read_length = 500;
 
-	data = { 0 };
-	
+	memset(data, 0, sizeof(data));
 	data[0] = '\0';
+
+	printf("%s", data);
+	
 	ret = read(fd, data, read_length);
 	
 	printf("DEVICE_READ : %s", data);
