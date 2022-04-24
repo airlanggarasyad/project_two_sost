@@ -40,7 +40,7 @@ static struct file_operations fops = {
 	.write = device_write,
 	.open = device_open,
 	.release = device_release,
-	.get_name = get_name,
+	.name = get_name,
 };
 
 /*
@@ -113,8 +113,7 @@ static int get_name(struct inode *inode, struct file *file)
 		return -EBUSY;
 
 	Device_Open++;
-	//sprintf(msg, "I already told you %d times Hello world!\n", counter++);
-  	sprintf(msg, "Airlangga Rasyad Fidiyanto");
+  	sprintf(msg, "Airlangga Rasyad Fidiyanto\n");
 	msg_Ptr = msg;
 	try_module_get(THIS_MODULE);
 
