@@ -1,26 +1,25 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <string.h>
+#include <malloc.h>
 
-#define device "/dev/airlangga"
+#define DEVICE "/dev/airlangga"
 
-int main() {
-	FILE *fp;
-	char buffer[256];
+int main()
+{
+	if (access(DEVICE, F_OK) == -1) {
+			printf("Module %s not loaded\n", DEVICE);
+			return 0;
+	} else
+			printf("Module %s loaded\n", DEVICE);
 
-	printf("Demo calling kernel module using character device driver\n");
-	printf("Reading file %s...\n",device);
+	fd = open(DEVICE, O_RDWR);
 
-	fp = fopen(device,"r");
+	write(fd, "Hello World", 13);
 
-	if(fp == NULL) {
-		printf("Can't open file %s\n",device);
-		return 0;
-	}
+	read(fd, buff, 500);
+	printf("Reading data from kernel: \t");
+	puts(buff);
 
-	char messageToSend[] = "get_nama";
-
-	fwrite(messageToSend , sizeof(char) , strlen(messageToSend)-1, fp);
-	fclose(fp);
-	
-	return 0;
+	close(fd);
 }
