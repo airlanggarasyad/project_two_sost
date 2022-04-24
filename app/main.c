@@ -21,7 +21,8 @@ int read_device() {
 	data[0] = '\0';
 	ret = read(fd, data, read_length);
 	
-	printf("DEVICE_READ : %s\n", data);
+	printf("DEVICE_READ : ");
+	puts(data);
 	
 	if (ret == -1)
 		printf("reading failed\n");
