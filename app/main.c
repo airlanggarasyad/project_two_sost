@@ -15,12 +15,12 @@ int read_device() {
 	ssize_t ret;
 	char *data = (char *)malloc(1024 * sizeof(char));
 
-	read_length = strlen(500);
+	read_length = 500;
 
 	memset(data, 0, sizeof(data));
 	
 	data[0] = '\0';
-	ret = read(fd, data, read_length, &ppos);
+	ret = read(fd, data, read_length);
 	
 	printf("DEVICE_READ : %s\n", data);
 	
