@@ -21,16 +21,15 @@ int read_device() {
 	data[0] = '\0';
 	ret = read(fd, data, read_length);
 	
-	printf("DEVICE_READ : ");
+	printf("DEVICE_READ : %s", data);
 	puts(data);
 	
 	if (ret == -1)
-		printf("reading failed\n");
+		free(data);
+		return -1;
 	else
-		printf("reading success\n");
-	
-	free(data);
-	return 0;
+		free(data);
+		return 0;
 }
 
 int main()
@@ -47,4 +46,6 @@ int main()
 	read_device();
 
 	close(fd);
+
+	return 0;
 }
