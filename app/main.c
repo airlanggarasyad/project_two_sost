@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
 #include <fcntl.h>
-#include <string.h>
-#include <malloc.h>
 
 #define DEVICE "/dev/airlangga"
 
