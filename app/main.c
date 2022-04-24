@@ -2,12 +2,38 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <malloc.h>
 
 #define DEVICE "/dev/airlangga"
 
+int fd = 0;
+int ppos = 0;
+
+int read_device() {
+	int read_length = 0;
+	ssize_t ret;
+	char *data = (char *)malloc(1024 * sizeof(char));
+
+	read_length = strlen(500);
+
+	memset(data, 0, sizeof(data));
+	
+	data[0] = '\0';
+	ret = read(fd, data, read_length, &ppos);
+	
+	printf("DEVICE_READ : %s\n", data);
+	
+	if (ret == -1)
+		printf("reading failed\n");
+	else
+		printf("reading success\n");
+	
+	free(data);
+	return 0;
+}
+
 int main()
 {
-	int fd;
   	char buff[500];
 
 	fd = open(DEVICE, O_RDWR);
