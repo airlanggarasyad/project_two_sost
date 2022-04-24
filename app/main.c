@@ -42,7 +42,8 @@ int main()
 	printf("Reading data from kernel: %s\n", buff);
 
 	while(strcmp(user_command, "exit") != 0) {
-		scanf("Command: %s", &user_command);
+		printf("Command: ");
+		fgets(user_command, sizeof(user_command), stdin);
 		
 		write(fd, user_command, 13);
 		read_device();
