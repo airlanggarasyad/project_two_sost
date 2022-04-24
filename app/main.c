@@ -22,7 +22,6 @@ int read_device() {
 	ret = read(fd, data, read_length);
 	
 	printf("DEVICE_READ : %s", data);
-	puts(data);
 	
 	if (ret == -1) {
 		free(data);
@@ -35,16 +34,18 @@ int read_device() {
 
 int main()
 {
-  	char buff[500];
+  	char buff[500], user_command[500];
 
 	fd = open(DEVICE, O_RDWR);
 
 	read(fd, buff, 500);
-	printf("Reading data from kernel: ");
-	puts(buff);
+	printf("Reading data from kernel: %s\n", buff);
 
-	write(fd, "get_nama", 13);
-	read_device();
+	while(strcmp(user_command, "exit") != 0) {
+		scanf("Command: %s", &user_command)
+		write(fd, user_command, 13);
+		read_device();
+	}
 
 	close(fd);
 
