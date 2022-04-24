@@ -3,6 +3,7 @@
 #define device "/dev/airlangga"
 
 int main() {
+	int ret;
 	FILE *fp;
 	char buffer[256];
 
@@ -10,7 +11,7 @@ int main() {
 	printf("Reading file %s...\n", device);
 
 	fp = fopen(device, "r");
-	
+
 	if(fp == NULL) {
 		printf("Can't open file %s\n",device);
 		return 0;
@@ -18,6 +19,21 @@ int main() {
 	
 	fread(buffer,sizeof(buffer),1,fp);
 	printf("Respond from kernel: %s\n",buffer);
+
+	printf("Type in a short string to send to the kernel module:\n");
+
+	scanf("%s", stringToSend);                // Read in a string (with spaces)
+
+	printf("Writing message to the device [%s].\n", stringToSend);
+
+	ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+
+	if (ret < 0)
+	{
+		perror("Failed to write the message to the device.");
+		return errno;
+	}
+
 
 	fclose(fp);
 	return 0;
