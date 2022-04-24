@@ -7,6 +7,7 @@
 #include <linux/sched.h>
 #include <linux/fs.h>
 #include <asm/uaccess.h>	/* for put_user */
+#include <string.h>
 
 /*  
  *  Function protoypes
@@ -193,8 +194,13 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 
 	device_buffer[strcspn(device_buffer, "\n")] = 0;
 
-	printk(KERN_INFO "charDev : device has been written %d\n", bytes_writen);
-	*off += bytes_writen;
-	printk(KERN_INFO "charDev : %s\n", device_buffer);
+	if (strcmp(device_buffer, "get_nama")) {
+		printk(KERN_INFO "Airlangga Rasyad Fidiyanto");
+	} else if (strcmp(device_buffer, "get_nim")) {
+		printk(KERN_INFO "19/443562/TK/48758");
+	} else {
+		printk(KERN_INFO "Invalid");
+	}
+
 	return bytes_writen;
 }
