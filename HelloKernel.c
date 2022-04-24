@@ -206,5 +206,5 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 
 	printk(KERN_INFO "%s", stringToReturn);
 
-	return copy_to_user(buff, &stringToReturn, len) ? -EFAULT : 0;;
+	return bytes_writen;
 }
