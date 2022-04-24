@@ -189,7 +189,7 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 
 	bytes_writen = bytes_to_write - copy_from_user(device_buffer + *off, buff, bytes_to_write);
 	printk(KERN_INFO "charDev : device has been written %d\n", bytes_writen);
-	*ppos += bytes_writen;
+	*off += bytes_writen;
 	printk(KERN_INFO "charDev : device has been written\n");
 	return bytes_writen;
 }
