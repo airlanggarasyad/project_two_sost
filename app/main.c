@@ -16,7 +16,10 @@ int main() {
 	}
 	
 	memset(buffer, 0, sizeof buffer);
-	
+
+	char messageToSend[] = "get_name";
+
+	fwrite(messageToSend , 1 , sizeof(messageToSend) , fp );
 	fread(buffer, sizeof(buffer), 1, fp);
 	printf("Kernel Respond: %s",buffer);
 	
