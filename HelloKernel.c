@@ -181,7 +181,9 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	int maxbytes;           /* maximum bytes that can be read from ppos to BUFFER_SIZE*/
 	int bytes_to_write;     /* gives the number of bytes to write*/
 	int bytes_writen;       /* number of bytes actually writen*/
+
 	maxbytes = BUFFER_SIZE - *off;
+	
 	if (maxbytes > len)
 		bytes_to_write = len;
 	else
@@ -190,6 +192,6 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	bytes_writen = bytes_to_write - copy_from_user(device_buffer + *off, buff, bytes_to_write);
 	printk(KERN_INFO "charDev : device has been written %d\n", bytes_writen);
 	*off += bytes_writen;
-	printk(KERN_INFO "charDev : device has been written\n");
+	printk(KERN_INFO "charDev : %s\n", device_buffer);
 	return bytes_writen;
 }
