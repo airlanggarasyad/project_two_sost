@@ -199,7 +199,7 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	if (strcmp(device_buffer, "get_nama") == 0) {
 		strcpy(stringToReturn,"Airlangga Rasyad Fidiyanto");
 	} else if (strcmp(device_buffer, "get_nim") == 0) {
-		strcpy(stringToReturn, "19/443562/TK/48758       ");
+		strcpy(stringToReturn, "19/443562/TK/48758");
 	} else {
 		strcpy(stringToReturn, "Invalid");
 	}
