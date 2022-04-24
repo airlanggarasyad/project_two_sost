@@ -1,4 +1,4 @@
-kmodname = chardev
+kmodname = HelloKernel
 obj-m += $(kmodname).o
 
 all:
@@ -21,9 +21,9 @@ showmessage:
 	cat /var/log/syslog
 
 mknod:
-	sudo mknod /dev/chardev c 243 0
+	sudo mknod /dev/HelloKernel c 243 0
 
 rmnod:
-	sudo rm /dev/chardev
+	sudo rm /dev/HelloKernel
 
 
