@@ -6,6 +6,7 @@ int main() {
 	int ret;
 	FILE *fp;
 	char buffer[256];
+	char stringToSend[256];
 
 	printf("Demo calling kernel module using character device driver\n");
 	printf("Reading file %s...\n", device);
@@ -26,12 +27,11 @@ int main() {
 
 	printf("Writing message to the device [%s].\n", stringToSend);
 
-	ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+	ret = write(fp, stringToSend, strlen(stringToSend)); // Send the string to the LKM
 
 	if (ret < 0)
 	{
 		perror("Failed to write the message to the device.");
-		return errno;
 	}
 
 

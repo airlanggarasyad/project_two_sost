@@ -22,6 +22,7 @@ static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 #define SUCCESS 0
 #define DEVICE_NAME "airlangga"	/* Dev name as it appears in /proc/devices   */
 #define BUF_LEN 80		/* Max length of the message from the device */
+#define MAX 256
 
 MODULE_LICENSE("GPL");
 
@@ -36,11 +37,12 @@ static char msg[BUF_LEN];	/* The msg the device will give when asked */
 static char *msg_Ptr;
 
 static struct file_operations fops = {
+	.owner = THIS_MODULE,
 	.read = device_read,
 	.write = device_write,
 	.open = device_open,
 	.release = device_release,
-};
+};	
 
 /*
  * This function is called when the module is loaded
@@ -186,6 +188,12 @@ static ssize_t device_read(struct file *filp,	/* see include/linux/fs.h   */
 static ssize_t
 device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 {
-	printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
-	return -EINVAL;
+	 if (length > MAX)
+        return -EINVAL;
+
+    if (copy_from_user(message, buffer, length) != 0)
+        return -EFAULT;
+
+    printk(KERN_INFO "Received %s characters from the user\n", message);
+    return 0;
 }
