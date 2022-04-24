@@ -15,9 +15,10 @@ int main() {
 		return 0;
 	}
 	
+	memset(buffer, 0, sizeof buffer);
+	
 	fread(buffer, sizeof(buffer), 1, fp);
 	printf("Kernel Respond: %s",buffer);
-	
 	
 
 	fclose(fp);
