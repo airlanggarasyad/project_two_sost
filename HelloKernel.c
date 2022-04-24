@@ -204,7 +204,6 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 		strcpy(stringToReturn, "Invalid");
 	}
 
-	printk(KERN_INFO, "%s", stringToReturn);
 	sprintf(msg, "%s\n", stringToReturn);
 	msg_Ptr = msg;
 	try_module_get(THIS_MODULE);
