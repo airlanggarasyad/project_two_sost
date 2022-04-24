@@ -25,5 +25,3 @@ mknod:
 
 rmnod:
 	sudo rm /dev/HelloKernel
-
-

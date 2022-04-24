@@ -55,7 +55,7 @@ int init_module(void)
 
 	printk(KERN_INFO "Assigned major number: %d\n", Major);
 	printk(KERN_INFO "Create a dev file with the following command:\n");
-	printk(KERN_INFO "'sudo mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
+	printk(KERN_INFO "sudo mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
 	printk(KERN_INFO "Remove the device file and module when done.\n");
 
 	return SUCCESS;
@@ -114,6 +114,11 @@ static int device_release(struct inode *inode, struct file *file)
 	 * Decrement the usage count, or else once you opened the file, you'll
 	 * never get get rid of the module. 
 	 */
+	printk(KERN_INFO "airlangga: Freeing memory and unregistering device");
+	sprintf(msg, "Kernel module closed\n", counter++);
+	msg_Ptr = msg;
+	try_module_get(THIS_MODULE);
+
 	module_put(THIS_MODULE);
 
 	return 0;
