@@ -93,16 +93,28 @@ void cleanup_module(void)
  * Called when a process tries to open the device file, like
  * "cat /dev/mycharfile"
  */
-static int device_open(struct inode *inode, struct file *file)
+static int device_open(struct file *fp, char *buff, size_t length, loff_t *ppos)
 {
-	static int counter = 1;
+int maxbytes;           /* maximum bytes that can be read from ppos to BUFFER_SIZE*/
+	int bytes_to_read;      /* gives the number of bytes to read*/
+	int bytes_read;         /* number of bytes actually read*/
 
-	if (Device_Open)
-		return -EBUSY;
+	maxbytes = BUFFER_SIZE - *ppos;
+	
+	if (maxbytes > length)
+			bytes_to_read = length;
+	else
+			bytes_to_read = maxbytes;
+	if (bytes_to_read == 0)
+			printk(KERN_INFO "charDev : Reached the end of the device\n");
 
-	Device_Open++;
-	//sprintf(msg, "I already told you %d times Hello world!\n", counter++);
-  	sprintf(msg, "Kernel module message written by Airlangga Fidiyanto (called %d times)\n", counter++);
+	bytes_read = bytes_to_read - copy_to_user(buff, device_buffer + *ppos, bytes_to_read);
+	printk(KERN_INFO "charDev : device has been read %d\n", bytes_read);
+
+	*ppos += bytes_read;
+	printk(KERN_INFO "%s\n", device_buffer);
+
+  	sprintf(msg, "%s\n", device_buffer);
 	msg_Ptr = msg;
 	try_module_get(THIS_MODULE);
 
