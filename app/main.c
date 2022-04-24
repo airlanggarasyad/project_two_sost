@@ -27,7 +27,7 @@ int read_device() {
 	if (ret == -1) {
 		free(data);
 		return -1;
-	}	else
+	}	else {
 		free(data);
 		return 0;
 	}
