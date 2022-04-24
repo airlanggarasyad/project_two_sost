@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <fcntl.h>
 
@@ -42,6 +43,6 @@ int main() {
 	fd = open(DEVICE, O_RDWR);
 	read_device();
 	close(fd);
-	
+
 	return 0;
 }
