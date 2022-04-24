@@ -194,9 +194,9 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 
 	device_buffer[strcspn(device_buffer, "\n")] = 0;
 
-	if (strcmp(device_buffer, "get_nama")) {
+	if (strcmp(device_buffer, "get_nama") == 0) {
 		printk(KERN_INFO "Airlangga Rasyad Fidiyanto");
-	} else if (strcmp(device_buffer, "get_nim")) {
+	} else if (strcmp(device_buffer, "get_nim") == 0) {
 		printk(KERN_INFO "19/443562/TK/48758");
 	} else {
 		printk(KERN_INFO "Invalid");
