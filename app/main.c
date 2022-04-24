@@ -1,45 +1,41 @@
 #include <stdio.h>
 #include <string.h>
+#include <fcntl.h>
 
-#define device "/dev/airlangga"
+#define DEVICE "/dev/airlangga"
 
 int main() {
-	int ret;
-	FILE *fp;
+	int ret, debug = 1, fd = 0, ppos = 0;
 	char buffer[256];
 	char stringToSend[256];
 
 	printf("Demo calling kernel module using character device driver\n");
-	printf("Reading file %s...\n", device);
+	printf("Reading file %s...\n", DEVICE);
 
-	fp = fopen(device, "r");
+	fd = open(DEVICE, O_RDWR);
 
-	if(fp == NULL) {
-		printf("Can't open file %s\n",device);
-		return 0;
-	}
+	int write_length = 0;
+	ssize_t ret;
+	char *data = (char *)malloc(1024 * sizeof(char));
+
+	printf("Please enter the data to write into device\n");
+	scanf(" %[^\n]", data); /* a space added after"so that it reads white space,
+							%[^\n] is   addeed so that it takes input until new line*/
+
+	write_length = strlen(data);
 	
-	fread(buffer,sizeof(buffer),1,fp);
-	printf("Respond from kernel: %s\n",buffer);
+	if (debug)
+			printf("the length of dat written = %d\n", write_length);
 
-	printf("Type in a short string to send to the kernel module:\n");
-
-	scanf("%s", stringToSend);                // Read in a string (with spaces)
-
-	printf("Writing message to the device [%s].\n", stringToSend);
-
-	for(int i=0; i<strlen(stringToSend); i++)
-	{
-		fwrite(&stringToSend[i], sizeof(char), 1, fp);
-     	i++;
-	}
-
-	if (ret < 0)
-	{
-		perror("Failed to write the message to the device.");
-	}
-
-
-	fclose(fp);
+	ret = write(fd, data, write_length, &ppos);
+	
+	if (ret == -1)
+			printf("writting failed\n");
+	else
+			printf("writting success\n");
+	if (debug)fflush(stdout); /*not to miss any log*/
+	free(data);
+	
+	close(fd);
 	return 0;
 }
