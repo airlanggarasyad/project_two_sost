@@ -10,14 +10,16 @@ int main() {
 	printf("Reading file %s...\n",device);
 
 	fp = fopen(device,"r");
+
 	if(fp == NULL) {
 		printf("Can't open file %s\n",device);
 		return 0;
 	}
 
-	char messageToSend[] = "get_name";
+	char messageToSend[] = "get_nama";
 
-	fwrite(messageToSend , 1 , sizeof(messageToSend) , fp );
+	fwrite(messageToSend , 1 , sizeof(messageToSend), fp);
 	fclose(fp);
+	
 	return 0;
 }
