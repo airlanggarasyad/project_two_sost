@@ -28,8 +28,11 @@ int main() {
 
 	printf("Writing message to the device [%s].\n", stringToSend);
 
-	ret = fwrite(stringToSend, 1, strlen(stringToSend), fp); // Send the string to the LKM
-	printf("Respond from kernel: %s\n",buffer);
+	for(int i=0; i<strlen(stringToSend); i++)
+	{
+		fwrite(&stringToSend[i], sizeof(char), 1, fp);
+     	i++;
+	}
 
 	if (ret < 0)
 	{
