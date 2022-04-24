@@ -55,7 +55,7 @@ int init_module(void)
 
 	printk(KERN_INFO "Assigned major number: %d\n", Major);
 	printk(KERN_INFO "Create a dev file with the following command:\n");
-	printk(KERN_INFO "'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
+	printk(KERN_INFO "'sudo mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
 	printk(KERN_INFO "Remove the device file and module when done.\n");
 
 	return SUCCESS;

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define device "/dev/chardev"
+#define device "/dev/airlangga"
 
 int main() {
 	FILE *fp;
