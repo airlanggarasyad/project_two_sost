@@ -7,11 +7,8 @@
 
 int main()
 {
-	if (access(DEVICE, F_OK) == -1) {
-			printf("Module %s not loaded\n", DEVICE);
-			return 0;
-	} else
-			printf("Module %s loaded\n", DEVICE);
+	int fd;
+  	char buff[500];
 
 	fd = open(DEVICE, O_RDWR);
 
