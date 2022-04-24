@@ -11,18 +11,19 @@
 /*  
  *  Function protoypes
  */
-int init_module(void);
-void cleanup_module(void);
-static int device_open(struct inode *, struct file *);
-static int device_release(struct inode *, struct file *);
-static ssize_t device_read(struct file *, char *, size_t, loff_t *);
-static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
-static char message[MAX+1] ="";
 
 #define SUCCESS 0
 #define DEVICE_NAME "airlangga"	/* Dev name as it appears in /proc/devices   */
 #define BUF_LEN 80		/* Max length of the message from the device */
 #define MAX 256
+
+int init_module(void);
+void cleanup_module(void);
+static int device_open(struct inode *, struct file *);
+static int device_release(struct inode *, struct file *);
+static ssize_t device_read(struct file *, char *, size_t, loff_t *);
+static ssize_t device_write(struct file *, const char *, size_t, loff_t *, char __user *buffer);
+static char message[MAX+1] ="";
 
 MODULE_LICENSE("GPL");
 
@@ -173,8 +174,7 @@ static ssize_t device_read(struct file *filp,	/* see include/linux/fs.h   */
 /*  
  * Called when a process writes to dev file: echo "hi" > /dev/hello 
  */
-static ssize_t
-device_write(struct file *filp, const char *buff, size_t len, loff_t * off, char __user *buffer)
+static ssize_t device_write(struct file *filp, const char *buff, size_t len, loff_t * off, char __user *buffer)
 {
 	 if (len > MAX)
         return -EINVAL;
