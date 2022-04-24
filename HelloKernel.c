@@ -183,6 +183,8 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	int bytes_to_write;     /* gives the number of bytes to write*/
 	int bytes_writen;       /* number of bytes actually writen*/
 
+	char stringToReturn[BUFFER_SIZE];
+
 	maxbytes = BUFFER_SIZE - *off;
 	
 	if (maxbytes > len)
@@ -195,12 +197,17 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	device_buffer[strcspn(device_buffer, "\n")] = 0;
 
 	if (strcmp(device_buffer, "get_nama") == 0) {
-		printk(KERN_INFO "Airlangga Rasyad Fidiyanto");
+		stringToReturn = "Airlangga Rasyad Fidiyanto";
 	} else if (strcmp(device_buffer, "get_nim") == 0) {
-		printk(KERN_INFO "19/443562/TK/48758");
+		stringToReturn = "19/443562/TK/48758";
 	} else {
-		printk(KERN_INFO "Invalid");
+		stringToReturn = "Invalid";
 	}
+
+	printk(KERN_INFO, "%s", stringToReturn);
+	sprintf(msg, "%s\n", stringToReturn);
+	msg_Ptr = msg;
+	try_module_get(THIS_MODULE);
 
 	return bytes_writen;
 }
