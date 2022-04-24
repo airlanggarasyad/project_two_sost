@@ -22,7 +22,7 @@ void cleanup_module(void);
 static int device_open(struct inode *, struct file *);
 static int device_release(struct inode *, struct file *);
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
-ssize_t device_write(struct file *pfile, const char __user *buffer, size_t length, loff_t *offset) 
+static ssize_t device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 static char message[MAX+1] ="";
 
 MODULE_LICENSE("GPL");
@@ -42,7 +42,7 @@ static struct file_operations fops = {
 	.read = device_read,
 	.write = device_write,
 	.open = device_open,
-	.release = device_release,
+	.release = device_release
 };	
 
 /*
@@ -174,14 +174,14 @@ static ssize_t device_read(struct file *filp,	/* see include/linux/fs.h   */
 /*  
  * Called when a process writes to dev file: echo "hi" > /dev/hello 
  */
-ssize_t device_write(struct file *pfile, const char __user *buffer, size_t length, loff_t *offset) {
-    if (length > MAX)
+static ssize_t device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
+{
+	 if (len > MAX)
         return -EINVAL;
 
-    if (copy_from_user(message, buffer, length) != 0)
+    if (copy_from_user(message, buff, len) != 0)
         return -EFAULT;
 
     printk(KERN_INFO "Received %s characters from the user\n", message);
     return 0;
-
-}   
+}
