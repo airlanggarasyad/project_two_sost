@@ -15,7 +15,6 @@ int init_module(void);
 void cleanup_module(void);
 static int device_open(struct inode *, struct file *);
 static int device_release(struct inode *, struct file *);
-static int get_name(struct inode *inode, struct file *file)
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
 static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 
@@ -96,19 +95,6 @@ static int device_open(struct inode *inode, struct file *file)
 	Device_Open++;
 	//sprintf(msg, "I already told you %d times Hello world!\n", counter++);
   	sprintf(msg, "Kernel module message written by Airlangga Fidiyanto (called %d times)\n", counter++);
-	msg_Ptr = msg;
-	try_module_get(THIS_MODULE);
-
-	return SUCCESS;
-}
-
-static int get_name(struct inode *inode, struct file *file)
-{
-	if (Device_Open)
-		return -EBUSY;
-
-	Device_Open++;
-  	sprintf(msg, "Airlangga Rasyad Fidiyanto\n");
 	msg_Ptr = msg;
 	try_module_get(THIS_MODULE);
 
