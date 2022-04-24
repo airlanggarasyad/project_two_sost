@@ -23,6 +23,8 @@ static int device_release(struct inode *, struct file *);
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
 static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 
+static char device_buffer[1024];
+
 MODULE_LICENSE("GPL");
 
 /* 
@@ -175,6 +177,18 @@ static ssize_t device_read(struct file *filp,	/* see include/linux/fs.h   */
 static ssize_t 
 device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 {
-	printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
-	return -EINVAL;
+	int maxbytes;           /* maximum bytes that can be read from ppos to BUFFER_SIZE*/
+	int bytes_to_write;     /* gives the number of bytes to write*/
+	int bytes_writen;       /* number of bytes actually writen*/
+	maxbytes = BUFFER_SIZE - *ppos;
+	if (maxbytes > length)
+		bytes_to_write = length;
+	else
+		bytes_to_write = maxbytes;
+
+	bytes_writen = bytes_to_write - copy_from_user(device_buffer + *off, buff, bytes_to_write);
+	printk(KERN_INFO "charDev : device has been written %d\n", bytes_writen);
+	*ppos += bytes_writen;
+	printk(KERN_INFO "charDev : device has been written\n");
+	return bytes_writen;
 }
