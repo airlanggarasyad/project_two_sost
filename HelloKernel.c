@@ -177,12 +177,14 @@ static ssize_t device_read(struct file *filp,	/* see include/linux/fs.h   */
 static ssize_t 
 device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 {
+	printk(KERN_INFO "Test");
+	sprintf("Receiving: %s", message)
 	if (len > MAX)
         return -EINVAL;
 
     if (copy_from_user(message, buff, len) != 0)
         return -EFAULT;
-
+	
     printk(KERN_INFO "Received %s characters from the user\n", message);
     return 0;
 }
