@@ -178,7 +178,7 @@ static ssize_t
 device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 {
 	printk(KERN_INFO "Test");
-	sprintf("Receiving: %s", message)
+	sprintf("Receiving: %s", message);
 	if (len > MAX)
         return -EINVAL;
 
