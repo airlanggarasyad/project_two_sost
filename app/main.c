@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define device "/dev/airlangga"
 
@@ -18,7 +19,7 @@ int main() {
 
 	char messageToSend[] = "get_nama";
 
-	fwrite(messageToSend , 1 , sizeof(messageToSend), fp);
+	fwrite(messageToSend , sizeof(char) , strlen(messageToSend)-1, fp);
 	fclose(fp);
 	
 	return 0;
