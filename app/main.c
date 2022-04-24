@@ -16,10 +16,9 @@ int main() {
 	}
 	
 	fread(buffer, sizeof(buffer), 1, fp);
-	printf("1. respond from kernel: %s",buffer);
+	printf("Kernel Respond: %s",buffer);
 	
-	fread(buffer,sizeof(buffer),1,fp);
-	printf("2. respond from kernel: %s\n",buffer);
+	
 
 	fclose(fp);
 	return 0;
