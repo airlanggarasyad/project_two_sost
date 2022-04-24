@@ -17,6 +17,9 @@ int main()
 	puts(buff);
 
 	write(fd, "get_nama", 13);
+	read(fd, buff, 500);
+	printf("Reading data from kernel: ");
+	puts(buff);
 
 	close(fd);
 }
