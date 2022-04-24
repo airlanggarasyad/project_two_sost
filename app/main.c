@@ -27,7 +27,7 @@ int main() {
 
 	printf("Writing message to the device [%s].\n", stringToSend);
 
-	ret = fwrite(fp, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+	ret = fwrite(stringToSend, 1, strlen(stringToSend), fp); // Send the string to the LKM
 
 	if (ret < 0)
 	{
