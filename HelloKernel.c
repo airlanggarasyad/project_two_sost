@@ -15,6 +15,7 @@
 #define SUCCESS 0
 #define DEVICE_NAME "airlangga"	/* Dev name as it appears in /proc/devices   */
 #define BUF_LEN 80		/* Max length of the message from the device */
+#define BUFFER_SIZE 1024
 
 int init_module(void);
 void cleanup_module(void);
@@ -23,7 +24,7 @@ static int device_release(struct inode *, struct file *);
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
 static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 
-static char device_buffer[1024];
+static char device_buffer[BUFFER_SIZE];
 
 MODULE_LICENSE("GPL");
 
@@ -180,9 +181,9 @@ device_write(struct file *filp, const char *buff, size_t len, loff_t * off)
 	int maxbytes;           /* maximum bytes that can be read from ppos to BUFFER_SIZE*/
 	int bytes_to_write;     /* gives the number of bytes to write*/
 	int bytes_writen;       /* number of bytes actually writen*/
-	maxbytes = BUFFER_SIZE - *ppos;
-	if (maxbytes > length)
-		bytes_to_write = length;
+	maxbytes = BUFFER_SIZE - *off;
+	if (maxbytes > len)
+		bytes_to_write = len;
 	else
 		bytes_to_write = maxbytes;
 
