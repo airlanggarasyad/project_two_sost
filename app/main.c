@@ -16,7 +16,7 @@ int read_device() {
 
 	read_length = 500;
 
-	memset(data, 0, sizeof(data));
+	data = { 0 };
 	
 	data[0] = '\0';
 	ret = read(fd, data, read_length);
