@@ -40,7 +40,6 @@ static struct file_operations fops = {
 	.write = device_write,
 	.open = device_open,
 	.release = device_release,
-	.name = get_name,
 };
 
 /*
@@ -107,8 +106,6 @@ static int device_open(struct inode *inode, struct file *file)
 
 static int get_name(struct inode *inode, struct file *file)
 {
-	static int counter = 1;
-
 	if (Device_Open)
 		return -EBUSY;
 
