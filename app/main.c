@@ -12,11 +12,11 @@ int main()
 
 	fd = open(DEVICE, O_RDWR);
 
-	write(fd, "Hello World", 13);
-
 	read(fd, buff, 500);
-	printf("Reading data from kernel: \t");
+	printf("Reading data from kernel: ");
 	puts(buff);
+
+	write(fd, "get_nama", 13);
 
 	close(fd);
 }
